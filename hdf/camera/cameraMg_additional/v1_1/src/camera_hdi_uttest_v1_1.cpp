@@ -136,7 +136,7 @@ HWTEST_F(CameraHdiTestV1_1Additional, testPrelaunch008, TestSize.Level2)
 HWTEST_F(CameraHdiTestV1_1Additional, testPrelaunch009, TestSize.Level2)
 {
     cameraTest->prelaunchConfig = std::make_shared<OHOS::HDI::Camera::V1_1::PrelaunchConfig>();
-    cameraTest->prelaunchConfig->cameraId = "device/10";
+    cameraTest->prelaunchConfig->cameraId = "device/50";
     cameraTest->prelaunchConfig->streamInfos_V1_1 = {};
     cameraTest->prelaunchConfig->setting = {};
 
