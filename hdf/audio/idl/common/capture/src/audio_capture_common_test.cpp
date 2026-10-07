@@ -677,6 +677,9 @@ HWTEST_F(AudioUtCaptureTest, SUB_Driver_Audio_CaptureHdi_3400, TestSize.Level1)
     float exceptionGain = -3.0;
 
     int32_t ret = capture_->SetGain(capture_, exceptionGain);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
     EXPECT_NE(ret, HDF_SUCCESS);
 
     ret = capture_->SetGain(nullptr, HALF_OF_MAX_VOLUME);
@@ -739,6 +742,9 @@ HWTEST_F(AudioUtCaptureTest, SUB_Driver_Audio_CaptureHdi_3900, TestSize.Level1)
     EXPECT_NE(capture_->SetSampleAttributes, nullptr);
 
     int32_t ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined  ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else

@@ -189,9 +189,15 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testCreateRender002, TestSize.Level1)
     devicedesc.pins = PIN_OUT_HEADSET;
     InitAttrs(attrs);
     int32_t ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
-    if (ret != HDF_SUCCESS) {
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    } else if (ret != HDF_SUCCESS) {
         attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        EXPECT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_));
+        ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
+        EXPECT_EQ(HDF_SUCCESS, ret);
     }
     EXPECT_EQ(HDF_SUCCESS, adapter_->DestroyRender(adapter_, renderId_));
 }
@@ -358,7 +364,11 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testCreateRender010, TestSize.Level1)
             GTEST_SKIP() << "Not support primary or PIN_OUT_HDMI" << std::endl;
         } else if (ret != HDF_SUCCESS) {
             attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-            EXPECT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_));
+            ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
+            if (ret == HDF_ERR_NOT_SUPPORT) {
+                GTEST_SKIP()<< "not support, skip this test" << std::endl;
+            }
+            EXPECT_EQ(HDF_SUCCESS, ret);
         }
         EXPECT_EQ(HDF_SUCCESS, adapter_->DestroyRender(adapter_, renderId_));
     }
@@ -388,7 +398,11 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testCreateRender011, TestSize.Level1)
             GTEST_SKIP() << "Not support primary or PIN_OUT_HEADSET" << std::endl;
         } else if (ret != HDF_SUCCESS) {
             attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-            EXPECT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_));
+            ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
+            if (ret == HDF_ERR_NOT_SUPPORT) {
+                GTEST_SKIP()<< "not support, skip this test" << std::endl;
+            }
+            EXPECT_EQ(HDF_SUCCESS, ret);
         }
         EXPECT_EQ(HDF_SUCCESS, adapter_->DestroyRender(adapter_, renderId_));
     }
@@ -413,7 +427,11 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testDestroyRender001, TestSize.Level2)
         GTEST_SKIP() << "Not support primary or PIN_OUT_HEADSET" << std::endl;
     } else if (ret != HDF_SUCCESS) {
         attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        EXPECT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_));
+        ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
+        EXPECT_EQ(HDF_SUCCESS, ret);
     }
     EXPECT_EQ(HDF_SUCCESS, adapter_->DestroyRender(adapter_, renderId_));
 }
@@ -779,7 +797,11 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testReleaseAudioRoute001, TestSize.Lev
         GTEST_SKIP() << "Not support primary or PIN_OUT_HEADSET" << std::endl;
     } else if (ret != HDF_SUCCESS) {
         attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        EXPECT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId));
+        ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
+        EXPECT_EQ(HDF_SUCCESS, ret);
     }
 
     int32_t routeHandle = -1;
@@ -840,6 +862,9 @@ HWTEST_F(HdfAudioUtAdapterTestAdditional, testReleaseAudioRoute002, TestSize.Lev
 {
     int32_t routeHandle = -1;
     int32_t ret = adapter_->ReleaseAudioRoute(adapter_, routeHandle);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
     EXPECT_NE(HDF_SUCCESS, ret);
 }
 
