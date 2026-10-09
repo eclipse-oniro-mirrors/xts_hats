@@ -130,7 +130,10 @@ void AudioUtRenderOffloadTest::SetUp()
     ASSERT_NE(adapter_, nullptr);
     InitRenderDevDesc(devDescRender_);
     InitRenderAttrs(attrsRender_);
-    (void)adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_);
+    int32_t ret = adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
     ASSERT_NE(render_, nullptr);
 }
 

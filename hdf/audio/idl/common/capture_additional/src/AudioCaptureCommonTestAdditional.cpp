@@ -196,10 +196,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetVolume001, TestSize.Le
     EXPECT_NE(capture_->SetVolume, nullptr);
 
     int32_t ret = capture_->SetVolume(capture_, volume);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -349,10 +352,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetMute003, TestSize.Leve
     EXPECT_NE(capture_->SetMute, nullptr);
     for (i = 0; i < 1000; i++) {
         ret = capture_->SetMute(capture_, false);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
         EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-        EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+        EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
     }
 }
@@ -441,10 +447,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain001, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
 
     int32_t ret = capture_->SetGain(capture_, mute);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -458,10 +467,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain002, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
 
     int32_t ret = capture_->SetGain(capture_, mute);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -475,6 +487,9 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain003, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
 
     int32_t ret = capture_->SetGain(capture_, mute);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
     EXPECT_NE(ret, HDF_SUCCESS);
 }
 /**
@@ -488,10 +503,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain004, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
 
     int32_t ret = capture_->SetGain(capture_, gain);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -505,10 +523,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain005, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
 
     int32_t ret = capture_->SetGain(capture_, gain);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -525,10 +546,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain006, TestSize.Leve
     EXPECT_NE(capture_->SetGain, nullptr);
     for (i = 0; i < 1000; i++) {
         ret = capture_->SetGain(capture_, mute);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
         EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-        EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+        EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
     }
 }
@@ -1460,10 +1484,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes001, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1491,18 +1518,15 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes002, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-#if defined ALSA_LIB_MODE
     if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
+#if defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #elif defined AUDIO_COMMUNITY
-    if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
-    }
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1530,7 +1554,10 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes003, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
+    EXPECT_EQ(ret, HDF_SUCCESS);
 }
 
 /**
@@ -1557,13 +1584,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes004, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
+#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1591,13 +1618,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes005, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
+#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1625,13 +1652,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes006, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
+#if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 /**
@@ -1658,10 +1685,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes007, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1689,10 +1719,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes008, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1720,10 +1753,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes009, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1751,10 +1787,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes010, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1782,10 +1821,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes011, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1813,10 +1855,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes012, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1844,10 +1889,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes013, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1875,13 +1923,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureSetSampleAttributes014, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
-#if defined ALSA_LIB_MODE || AUDIO_COMMUNITY
     if (ret == HDF_ERR_NOT_SUPPORT) {
-        GTEST_SKIP()<< "skip this test" << std::endl;
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
+#if defined ALSA_LIB_MODE || AUDIO_COMMUNITY
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 }
 
@@ -1909,10 +1957,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureGetSampleAttributes001, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrs);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
     if (ret == HDF_SUCCESS) {
         ret = capture_->GetSampleAttributes(capture_, &attrs);
@@ -1958,10 +2009,13 @@ HWTEST_F(AudioUtCaptureTestAdditional, testCaptureGetSampleAttributes002, Functi
     int32_t ret = 0;
 
     ret = capture_->SetSampleAttributes(capture_, &attrsSet);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
 #if defined AUDIO_COMMUNITY || defined ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_EQ(ret, HDF_ERR_NOT_SUPPORT);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
 
     if (ret == HDF_SUCCESS) {

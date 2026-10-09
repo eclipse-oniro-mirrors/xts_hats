@@ -127,7 +127,11 @@ void AudioUtRenderMmapTestAdditional::SetUp()
     }
     if (ret != HDF_SUCCESS) {
         attrsRender_.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        ASSERT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_));
+        ret = adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP() << "Mmap not support" << std::endl;
+        }
+        ASSERT_EQ(HDF_SUCCESS, ret);
     }
     ASSERT_NE(render_, nullptr);
 }

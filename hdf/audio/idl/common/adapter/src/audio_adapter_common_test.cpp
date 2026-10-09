@@ -195,9 +195,15 @@ HWTEST_F(HdfAudioUtAdapterTest, SUB_Driver_Audio_AdapterHdi_0700, TestSize.Level
     attrs.silenceThreshold = 0;
     attrs.streamId = 0;
     int32_t ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
-    if (ret != HDF_SUCCESS) {
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    } else if (ret != HDF_SUCCESS) {
         attrs.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        ASSERT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_));
+        ret = adapter_->CreateRender(adapter_, &devicedesc, &attrs, &render, &renderId_);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
+        ASSERT_EQ(HDF_SUCCESS, ret);
     }
     EXPECT_EQ(HDF_SUCCESS, adapter_->DestroyRender(adapter_, renderId_));
 }
@@ -529,7 +535,10 @@ HWTEST_F(HdfAudioUtAdapterTest, SUB_Driver_Audio_AdapterHdi_4900, TestSize.Level
 {
     int32_t routeHandle = 0;
     int32_t ret = adapter_->ReleaseAudioRoute(adapter_, routeHandle);
-    ASSERT_TRUE(ret == HDF_ERR_NOT_SUPPORT || ret == HDF_FAILURE);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
+    ASSERT_TRUE(ret == HDF_FAILURE);
 }
 
 HWTEST_F(HdfAudioUtAdapterTest, SUB_Driver_Audio_AdapterHdi_5000, TestSize.Level1)

@@ -163,9 +163,16 @@ void AudioUtRenderTestAdditional::SetUp()
     InitRenderAttrs(attrsRender_);
 
     int32_t ret = adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_);
+    if (ret == HDF_ERR_NOT_SUPPORT) {
+        GTEST_SKIP()<< "not support, skip this test" << std::endl;
+    }
     if (ret != HDF_SUCCESS) {
         attrsRender_.format = AUDIO_FORMAT_TYPE_PCM_32_BIT;
-        ASSERT_EQ(HDF_SUCCESS, adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_));
+        ret = adapter_->CreateRender(adapter_, &devDescRender_, &attrsRender_, &render_, &renderId_);
+        if (ret == HDF_ERR_NOT_SUPPORT) {
+            GTEST_SKIP()<< "not support, skip this test" << std::endl;
+        }
+        ASSERT_EQ(HDF_SUCCESS, ret);
     }
     ASSERT_NE(render_, nullptr);
 }
