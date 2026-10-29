@@ -21,6 +21,7 @@ ohos_moduletest_suite("HatsHdfAudioIdlRenderTest") {
   sources = [
     "src/audio_render_common_test.cpp",
     "src/audio_render_mmap_test.cpp",
+    "src/audio_render_ultra_low_latV6_2_test.cpp",
   ]
   configs = [ ":audio_idl_render" ]
 

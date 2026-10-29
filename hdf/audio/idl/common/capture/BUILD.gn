@@ -18,7 +18,10 @@ import("//test/xts/tools/build/suite.gni")
 module_output_path = "hats/audio"
 ohos_moduletest_suite("HatsHdfAudioIdlCaptureTest") {
   module_out_path = module_output_path
-  sources = [ "src/audio_capture_common_test.cpp" ]
+  sources = [
+    "src/audio_capture_common_test.cpp",
+    "src/audio_capture_ultra_low_latV6_2_test.cpp",
+  ]
   configs = [ ":audio_idl_capture" ]
 
   deps = [ "//third_party/bounds_checking_function:libsec_shared" ]
