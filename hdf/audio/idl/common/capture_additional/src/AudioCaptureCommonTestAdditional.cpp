@@ -161,7 +161,7 @@ void AudioUtCaptureTestAdditional::SetUp()
     EXPECT_EQ(HDF_SUCCESS, manager_->LoadAdapter(manager_, &adapterDescs_[0], &adapter_));
     if (adapter_ == nullptr) {
         ReleaseAllAdapterDescs(&adapterDescs_, MAX_AUDIO_ADAPTER_NUM);
-        EXPECT_NE(adapter_, nullptr);
+        ASSERT_NE(adapter_, nullptr);
     }
 
     InitCaptureDevDesc(devDesc);
@@ -490,7 +490,7 @@ HWTEST_F(AudioUtCaptureTestAdditional, testAudioCaptureSetGain003, TestSize.Leve
     if (ret == HDF_ERR_NOT_SUPPORT) {
         GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
-    EXPECT_NE(ret, HDF_SUCCESS);
+    EXPECT_EQ(ret, HDF_ERR_INVALID_PARAM);
 }
 /**
  * @tc.number : SUB_Driver_Audio_CaptureSetGain_0600
