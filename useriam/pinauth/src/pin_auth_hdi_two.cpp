@@ -20,8 +20,8 @@ using namespace std;
 using namespace testing::ext;
 using namespace OHOS::UserIam::Common;
 using namespace OHOS::HDI::PinAuth;
-using namespace OHOS::HDI::PinAuth::V3_0;
-using HdiProperty = OHOS::HDI::PinAuth::V3_0::Property;
+using namespace OHOS::HDI::PinAuth::V4_0;
+using HdiProperty = OHOS::HDI::PinAuth::V4_0::Property;
 
 static AllInOneImpl g_executorImpl(make_shared<OHOS::UserIam::PinAuth::PinAuth>());
 static OHOS::Parcel parcel;
@@ -77,6 +77,14 @@ public:
         return onMessageResult_;
     }
 
+    int32_t OnGetDataExt(const std::vector<PinAlgoParameter>& algoParameters, uint64_t authSubType,
+        const std::vector<uint8_t>& challenge, const std::string& complexityReg) override
+    {
+        cout << "authSubType is " << authSubType << endl;
+        cout << "algoParameters size is " << algoParameters.size() << endl;
+        return onGetDataResult_;
+    }
+
 private:
     int32_t onResultResult_;
     int32_t onGetDataResult_;
@@ -108,7 +116,7 @@ static void FillTestIExecutorCallback(Parcel &parcel, sptr<IExecutorCallback> &c
 HWTEST_F(UserIamPinAuthTwoTest, Security_IAM_PinAuth_HDI_NEW_FUNC_0104, Function | MediumTest | Level1)
 {
     cout << "start Authenticate" << endl;
-    
+
     uint64_t scheduleId = parcel.ReadUint64();
     uint64_t templateId = parcel.ReadUint64();
     std::vector<uint64_t> templateIdList;

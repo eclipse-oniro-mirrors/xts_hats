@@ -20,10 +20,10 @@ using namespace std;
 using namespace testing::ext;
 using namespace OHOS::UserIam::Common;
 using namespace OHOS::HDI::PinAuth;
-using namespace OHOS::HDI::PinAuth::V3_0;
-using Property = OHOS::HDI::PinAuth::V3_0::Property;
-using HdiExecutorRole = OHOS::HDI::PinAuth::V3_0::ExecutorRole;
-using HdiAuthType = OHOS::HDI::PinAuth::V3_0::AuthType;
+using namespace OHOS::HDI::PinAuth::V4_0;
+using Property = OHOS::HDI::PinAuth::V4_0::Property;
+using HdiExecutorRole = OHOS::HDI::PinAuth::V4_0::ExecutorRole;
+using HdiAuthType = OHOS::HDI::PinAuth::V4_0::AuthType;
 
 static AllInOneImpl g_executorImpl(make_shared<OHOS::UserIam::PinAuth::PinAuth>());
 static OHOS::Parcel parcel;
@@ -77,6 +77,14 @@ public:
     int32_t OnMessage(int32_t destRole, const std::vector<uint8_t>& msg) override
     {
         return onMessageResult_;
+    }
+
+    int32_t OnGetDataExt(const std::vector<PinAlgoParameter>& algoParameters, uint64_t authSubType,
+        const std::vector<uint8_t>& challenge, const std::string& complexityReg) override
+    {
+        cout << "authSubType is " << authSubType << endl;
+        cout << "algoParameters size is " << algoParameters.size() << endl;
+        return onGetDataResult_;
     }
 
 private:
