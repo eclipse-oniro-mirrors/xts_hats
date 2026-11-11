@@ -23,9 +23,9 @@ using namespace std;
 using namespace testing::ext;
 using namespace OHOS::UserIam::Common;
 using namespace OHOS::HDI::PinAuth;
-using namespace OHOS::HDI::PinAuth::V3_0;
-using HdiAuthType = OHOS::HDI::PinAuth::V3_0::AuthType;
-using HdiExecutorRole = OHOS::HDI::PinAuth::V3_0::ExecutorRole;
+using namespace OHOS::HDI::PinAuth::V4_0;
+using HdiAuthType = OHOS::HDI::PinAuth::V4_0::AuthType;
+using HdiExecutorRole = OHOS::HDI::PinAuth::V4_0::ExecutorRole;
 
 static OHOS::Parcel parcel;
 
@@ -111,11 +111,11 @@ HWTEST_F(PinAuthTypeTest, Security_IAM_PinAuth_HDI_FUNC_0203, Function | MediumT
 HWTEST_F(PinAuthTypeTest, Security_IAM_PinAuth_HDI_NEW_FUNC_0201, Function | MediumTest | Level1)
 {
     cout << "start test GetPropertyType" << endl;
-    GetPropertyType auth_sub_type = OHOS::HDI::PinAuth::V3_0::AUTH_SUB_TYPE;
-    GetPropertyType lockout_duration = OHOS::HDI::PinAuth::V3_0::LOCKOUT_DURATION;
-    GetPropertyType remain_attempts = OHOS::HDI::PinAuth::V3_0::REMAIN_ATTEMPTS;
-    GetPropertyType next_fail_lockout_duration = OHOS::HDI::PinAuth::V3_0::NEXT_FAIL_LOCKOUT_DURATION;
-    GetPropertyType credential_length = OHOS::HDI::PinAuth::V3_0::CREDENTIAL_LENGTH ;
+    GetPropertyType auth_sub_type = OHOS::HDI::PinAuth::V4_0::AUTH_SUB_TYPE;
+    GetPropertyType lockout_duration = OHOS::HDI::PinAuth::V4_0::LOCKOUT_DURATION;
+    GetPropertyType remain_attempts = OHOS::HDI::PinAuth::V4_0::REMAIN_ATTEMPTS;
+    GetPropertyType next_fail_lockout_duration = OHOS::HDI::PinAuth::V4_0::NEXT_FAIL_LOCKOUT_DURATION;
+    GetPropertyType credential_length = OHOS::HDI::PinAuth::V4_0::CREDENTIAL_LENGTH ;
     EXPECT_EQ(auth_sub_type, 1);
     EXPECT_EQ(lockout_duration, 2);
     EXPECT_EQ(remain_attempts, 3);

@@ -20,8 +20,8 @@ using namespace std;
 using namespace testing::ext;
 using namespace OHOS::UserIam::Common;
 using namespace OHOS::HDI::PinAuth;
-using namespace OHOS::HDI::PinAuth::V3_0;
-using Property = OHOS::HDI::PinAuth::V3_0::Property;
+using namespace OHOS::HDI::PinAuth::V4_0;
+using Property = OHOS::HDI::PinAuth::V4_0::Property;
 
 static AllInOneImpl g_executorImpl(make_shared<OHOS::UserIam::PinAuth::PinAuth>());
 static OHOS::Parcel parcel;
@@ -71,6 +71,14 @@ public:
     int32_t OnMessage(int32_t destRole, const std::vector<uint8_t>& msg) override
     {
         return onMessageResult_;
+    }
+
+    int32_t OnGetDataExt(const std::vector<PinAlgoParameter>& algoParameters, uint64_t authSubType,
+        const std::vector<uint8_t>& challenge, const std::string& complexityReg) override
+    {
+        cout << "authSubType is " << authSubType << endl;
+        cout << "algoParameters size is " << algoParameters.size() << endl;
+        return onGetDataResult_;
     }
 
 private:
@@ -551,9 +559,9 @@ HWTEST_F(UserIamPinAuthTestAdditional, testPinAuthTestGetProperty001, Function |
     ret = g_executorImpl.GetProperty(templateIdList, propertyTypes, property);
     cout << "ret is " << ret << endl;
     EXPECT_NE(ret, 0);
-    propertyTypes.push_back(OHOS::HDI::PinAuth::V3_0::AUTH_SUB_TYPE);
-    propertyTypes.push_back(OHOS::HDI::PinAuth::V3_0::LOCKOUT_DURATION);
-    propertyTypes.push_back(OHOS::HDI::PinAuth::V3_0::REMAIN_ATTEMPTS);
+    propertyTypes.push_back(OHOS::HDI::PinAuth::V4_0::AUTH_SUB_TYPE);
+    propertyTypes.push_back(OHOS::HDI::PinAuth::V4_0::LOCKOUT_DURATION);
+    propertyTypes.push_back(OHOS::HDI::PinAuth::V4_0::REMAIN_ATTEMPTS);
     ret = g_executorImpl.GetProperty(templateIdList, propertyTypes, property);
     cout << "ret is " << ret << endl;
     EXPECT_NE(ret, 0);
@@ -569,7 +577,7 @@ HWTEST_F(UserIamPinAuthTestAdditional, testPinAuthTestGetProperty006, Function |
     std::vector<uint64_t> templateIdList;
     FillTestUint64Vector(parcel, templateIdList);
     std::vector<int32_t> propertyTypes;
-    propertyTypes.push_back(OHOS::HDI::PinAuth::V3_0::AUTH_SUB_TYPE);
+    propertyTypes.push_back(OHOS::HDI::PinAuth::V4_0::AUTH_SUB_TYPE);
     Property property;
 
     int32_t ret = 0;
