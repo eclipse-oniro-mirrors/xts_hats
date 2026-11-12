@@ -76,6 +76,16 @@ static bool IsOnlineDev(uint32_t devIndex)
     return ret;
 }
 
+static bool IsTouchDev(uint32_t devIndex)
+{
+    for (const auto &desc : g_sta) {
+        if (desc.devIndex == devIndex && desc.devType == INDEV_TYPE_TOUCH) {
+            return true;
+        }
+    }
+    return false;
+}
+
 /**
  * @tc.number : SUB_Driver_Input_ScanInputDevice_0200
  * @tc.name   : testScanInputDevice001
@@ -485,7 +495,7 @@ HWTEST_F(HdfInputHdiTestAdditional, testGetPowerStatus004, Function | MediumTest
     uint32_t devIndex = 3;
     uint32_t getStatus = 0;
     for (devIndex = 3; devIndex < MAX_DEVICES; devIndex++) {
-        if (IsOnlineDev(devIndex)) {
+        if (IsTouchDev(devIndex)) {
             ret = g_inputInterfaces->OpenInputDevice(devIndex);
             EXPECT_EQ(ret, INPUT_SUCCESS);
             ret = g_inputInterfaces->GetPowerStatus(devIndex, getStatus);
@@ -948,7 +958,7 @@ HWTEST_F(HdfInputHdiTestAdditional, testRunCapacitanceTest002, Function | Medium
     uint32_t testType = BASE_TEST;
     std::string result;
     for (devIndex = 3; devIndex < MAX_DEVICES; devIndex++) {
-        if (IsOnlineDev(devIndex)) {
+        if (IsTouchDev(devIndex)) {
             ret = g_inputInterfaces->OpenInputDevice(devIndex);
             EXPECT_EQ(ret, INPUT_SUCCESS);
             ret = g_inputInterfaces->RunCapacitanceTest(devIndex, testType, result, TEST_RESULT_LEN);
@@ -1026,7 +1036,7 @@ HWTEST_F(HdfInputHdiTestAdditional, testRunCapacitanceTest006, Function | Medium
     uint32_t testType = FULL_TEST;
     std::string result;
     for (devIndex = 3; devIndex < MAX_DEVICES; devIndex++) {
-        if (IsOnlineDev(devIndex)) {
+        if (IsTouchDev(devIndex)) {
             ret = g_inputInterfaces->OpenInputDevice(devIndex);
             EXPECT_EQ(ret, INPUT_SUCCESS);
             ret = g_inputInterfaces->RunCapacitanceTest(devIndex, testType, result, TEST_RESULT_LEN);
@@ -1083,7 +1093,7 @@ HWTEST_F(HdfInputHdiTestAdditional, testRunCapacitanceTest009, Function | Medium
     uint32_t testType = MMI_TEST;
     std::string result;
     for (devIndex = 3; devIndex < MAX_DEVICES; devIndex++) {
-        if (IsOnlineDev(devIndex)) {
+        if (IsTouchDev(devIndex)) {
             ret = g_inputInterfaces->OpenInputDevice(devIndex);
             EXPECT_EQ(ret, INPUT_SUCCESS);
             ret = g_inputInterfaces->RunCapacitanceTest(devIndex, testType, result, TEST_RESULT_LEN);
@@ -1141,7 +1151,7 @@ HWTEST_F(HdfInputHdiTestAdditional, testRunCapacitanceTest012, Function | Medium
     uint32_t testType = RUNNING_TEST;
     std::string result;
     for (devIndex = 3; devIndex < MAX_DEVICES; devIndex++) {
-        if (IsOnlineDev(devIndex)) {
+        if (IsTouchDev(devIndex)) {
             ret = g_inputInterfaces->OpenInputDevice(devIndex);
             EXPECT_EQ(ret, INPUT_SUCCESS);
             ret = g_inputInterfaces->RunCapacitanceTest(devIndex, testType, result, TEST_RESULT_LEN);
