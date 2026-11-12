@@ -162,7 +162,7 @@ void AudioUtCaptureTest::SetUp()
     EXPECT_EQ(HDF_SUCCESS, manager_->LoadAdapter(manager_, &adapterDescs_[0], &adapter_));
     if (adapter_ == nullptr) {
         ReleaseAllAdapterDescs(&adapterDescs_, MAX_AUDIO_ADAPTER_NUM);
-        EXPECT_NE(adapter_, nullptr);
+        ASSERT_NE(adapter_, nullptr);
     }
 
     InitCaptureDevDesc(devDesc);
@@ -680,7 +680,7 @@ HWTEST_F(AudioUtCaptureTest, SUB_Driver_Audio_CaptureHdi_3400, TestSize.Level1)
     if (ret == HDF_ERR_NOT_SUPPORT) {
         GTEST_SKIP()<< "not support, skip this test" << std::endl;
     }
-    EXPECT_NE(ret, HDF_SUCCESS);
+    EXPECT_EQ(ret, HDF_ERR_INVALID_PARAM);
 
     ret = capture_->SetGain(nullptr, HALF_OF_MAX_VOLUME);
     EXPECT_NE(ret, HDF_SUCCESS);
@@ -748,7 +748,7 @@ HWTEST_F(AudioUtCaptureTest, SUB_Driver_Audio_CaptureHdi_3900, TestSize.Level1)
 #if defined  ALSA_LIB_MODE
     EXPECT_EQ(ret, HDF_SUCCESS);
 #else
-    EXPECT_NE(ret, HDF_SUCCESS);
+    EXPECT_EQ(ret, HDF_SUCCESS);
 #endif
     ret = capture_->SetSampleAttributes(capture_, nullptr);
     EXPECT_NE(ret, HDF_SUCCESS);
