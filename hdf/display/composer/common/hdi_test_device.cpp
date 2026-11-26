@@ -43,12 +43,12 @@ void HdiTestDevice::HotPlug(uint32_t outputId, bool connected, void* data)
 
 int32_t HdiTestDevice::InitDevice()
 {
-    constexpr uint32_t MAX_RETRY_COUNT = 100;
+    constexpr uint32_t maxRetryCount = 100;
     uint32_t retryCount = 0;
-    while (displayDevice_ == nullptr && retryCount < MAX_RETRY_COUNT) {
+    while (displayDevice_ == nullptr && retryCount < maxRetryCount) {
         displayDevice_ = Composer::V1_6::IDisplayComposerInterface::Get();
         if (displayDevice_ == nullptr) {
-            usleep(WAIT_TIME_INTERVAL);
+            usleep(waitTimeInterval);
             ++retryCount;
         }
     }

@@ -50,7 +50,7 @@ public:
     std::shared_ptr<HdiTestDisplay> GetFirstDisplay();
     void Clear() const;
     std::vector<uint32_t> GetDevIds() const;
-    static constexpr uint32_t WAIT_TIME_INTERVAL = 10000;
+    static constexpr uint32_t waitTimeInterval = 10000;
 
 private:
     std::shared_ptr<HdiTestDisplay> FindDisplayOrCreate(uint32_t id);
