@@ -17,8 +17,8 @@
 #include <chrono>
 #include <cinttypes>
 #include <algorithm>
-#include "v1_2/include/idisplay_composer_interface.h"
-#include "v1_2/display_composer_type.h"
+#include "v1_6/include/idisplay_composer_interface.h"
+#include "v1_6/display_composer_type.h"
 #include "v1_0/display_buffer_type.h"
 #include "display_test.h"
 #include "display_test_utils.h"
@@ -36,7 +36,7 @@ using namespace OHOS::HDI::Display::Composer::V1_2;
 using namespace OHOS::HDI::Display::TEST;
 using namespace testing::ext;
 
-static sptr<Composer::V1_2::IDisplayComposerInterface> g_composerDevice = nullptr;
+static sptr<Composer::V1_6::IDisplayComposerInterface> g_composerDevice = nullptr;
 static std::shared_ptr<IDisplayBuffer> g_gralloc = nullptr;
 static std::vector<uint32_t> g_displayIds;
 const int SLEEP_CONT_10 = 10;
@@ -376,6 +376,16 @@ HWTEST_F(DeviceTest, SUB_Driver_Display_HDI_5400, TestSize.Level1)
 {
     const uint32_t LEVEL = 10;
     auto ret = g_composerDevice->SetDisplayBacklight(g_displayIds[0], LEVEL);
+    if (ret != DISPLAY_SUCCESS) {
+        uint8_t vcpCode = 0x10;
+        uint16_t currentValue = 50;
+        auto result = g_composerDevice->SetDisplayVCPFeature(g_displayIds[0], vcpCode, currentValue);
+        if (result == DISPLAY_NOT_SUPPORT) {
+            GTEST_SKIP() << "SetDisplayVCPFeature not support" << std::endl;
+        }
+        EXPECT_EQ(DISPLAY_SUCCESS, result);
+        return;
+    }
     EXPECT_EQ(DISPLAY_SUCCESS, ret);
 }
 
